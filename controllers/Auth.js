@@ -24,7 +24,7 @@ const register = async(req,res)=>{
         const original_url = 'http://localhost:3000/verification';
         const token = req.token;
         req.URL = `${original_url}/${token}`
-        const email = await SendEmail(req,res);
+        // const email = await SendEmail(req,res);
         return res.status(200).json({message:'email sent'})
 
 
@@ -46,7 +46,7 @@ const resetMail = async(req,res)=>{
         const original_url = 'http://localhost:3000/reset-password';
         const token = req.token;
         req.URL = `${original_url}/${token}`
-        const email = await SendEmail(req,res);
+        // const email = await SendEmail(req,res);
         return res.status(200).json({message:'email sent'})
 
 

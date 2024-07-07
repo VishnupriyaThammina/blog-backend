@@ -31,8 +31,7 @@ const postSchema = new Schema({
     },
     // reference to users table
     userid:{
-        type: Schema.Types.ObjectId,
-        ref:'Users',
+        type:String,
         required: true,
     }
 })
