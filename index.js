@@ -6,6 +6,8 @@ require('dotenv').config();
 const connectionDb = require('./config/dbConnection')
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
+const postRoutes = require('./routes/postRoutes')
+
 
 // app port const 
 app = express();
@@ -20,6 +22,9 @@ app.use(bodyparser.json());
 
 app.use('/auth',authRoutes);
 app.use('/user',userRoutes);
+app.use('/post',postRoutes);
+
+
 
 
 // open a port for listening 
