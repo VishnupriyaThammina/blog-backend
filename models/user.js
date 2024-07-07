@@ -10,7 +10,6 @@ const UserSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         },
         username:{
             type: String,
@@ -20,6 +19,14 @@ const UserSchema = new Schema(
         password:{
             type:String,
             required:true
+        },
+        token:{
+            type:String,
+
+        },
+        status:{
+            type: String,
+            enum:['verified', 'not-verified'],
         }
     }
 )
