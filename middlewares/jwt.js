@@ -7,8 +7,8 @@ const gen=(req)=>{
 
 token = jwt.sign({
     // field which needs to be used in token
-    username:req.username,
-    status:req.user_status,
+    email:req.body.email,
+    
 }, 
 JWT_SECRET,
 {expiresIn:'1h'}
@@ -34,8 +34,7 @@ const verifyToken = (req,res,next)=>{
         if(err){
             return res.status(500).json({message:"failed to authenticate token"})
         }
-        req.username_d = decoded.username;
-        req.role_d = decoded.role;
+        req.email = decoded.email;
         
         next();
         // implement the next middleware

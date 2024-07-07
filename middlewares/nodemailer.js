@@ -2,9 +2,8 @@ const nodemailer = require('nodemailer');
 
 const SendEmail = async(req,res)=>{
     try{
-        const original_url = 'http://localhost:3000/verification';
-        const token = req.token;
-        const URL = `${original_url}/${token}`
+const URL = req.URL;
+
           // Create a transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -17,7 +16,7 @@ const SendEmail = async(req,res)=>{
   // Set up email data
   let mailOptions = {
     from: 'vishhxh@gmail.com',
-    to: 'vishhxh@gmail.com',
+    to: req.body.email,
     subject: "Account Verification link - to Vishnu priya Thammina's website",
     text: `Hi, this is your verification link: ${URL}`
   };

@@ -3,9 +3,12 @@ const express = require('express')
 const router = express.Router();
 // get auth controller
 
-const {CreateUser} = require('../controllers/User')
+const {resetPassword,verifyUser} = require('../controllers/User')
 
-router.post('/create',CreateUser)
+router.post('/reset',resetPassword)
+router.post('/verify-token',verifyUser)
+
+
 
 
 module.exports = router;

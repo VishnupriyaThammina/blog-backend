@@ -24,6 +24,10 @@ const UserSchema = new Schema(
             type:String,
 
         },
+        resetToken:{
+            type:String,
+
+        },
         status:{
             type: String,
             enum:['verified', 'not-verified'],

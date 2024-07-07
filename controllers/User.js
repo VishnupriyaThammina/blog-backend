@@ -34,7 +34,7 @@ const CreateUser = async(req,res)=>{
             email : req.body.email,
             password : req.body.password,   
             token: req.token,
-            status: "not-verified"
+            status: "not-verified",
             
         })
 
@@ -57,6 +57,38 @@ const CreateUser = async(req,res)=>{
 
 
 // Verify user
+const verifyUser = async(req,res)=>{
+    try{
+        const token1 = req.body.token;
+        if(!token1){
+        return res.status(400).json({message:"Invalid request"})
+        }
+        const user = await User.findOneAndUpdate({token:token1},{status:"verified"},{new:true});
+        return res.status(200).json({message:"User verified"})
+
+    }catch(error){
+        return res.status(500).json({message:error.message})
+
+    }
+}
+
+// reset password 
+const resetPassword = async(req,res)=>{
+    try{
+const newPassword = req.body.np;
+const confirmPassword =req.body.cp;
+if(newPassword !== confirmPassword){
+    return res.status(400).json({message:"No password match"})
+}
+const pass = confirmPassword
+const token = req.body.token;
+const user = await User.findOneAndUpdate({resetToken:token},{password:pass},{new:true});
+return res.status(200).json({message:"Updated user successfully"})
+    }catch(error){
+return res.status(500).json({message:"Internal server error"})
+    }
+}
 
 
-module.exports = {CreateUser}
+
+module.exports = {CreateUser,resetPassword,verifyUser}
