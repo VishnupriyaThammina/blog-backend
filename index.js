@@ -34,6 +34,6 @@ app.use('/post',postRoutes);
 
 // open a port for listening 
 app.listen(port, () => {
-    console.log('Server is listening on port:', port);
+    console.log('Server is listening on port:', process.env.port);
   });
   

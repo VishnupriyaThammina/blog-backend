@@ -91,7 +91,7 @@ const getAllPosts = async(req,res)=>{
 // get recent 5 posts thumbnail
 const get5Posts = async(req,res)=>{
     try{
-const postss = await Post.find().sort({createTime: -1}).limit(5);
+const postss = await Post.find().sort({createTime: 1}).limit(5);
 // the posts should only be edited by the owner 
 const email = req.email;
 const posts = postss.map(post=>{
