@@ -20,7 +20,7 @@ const URL = req.URL;
     subject: "Account Verification link - to Vishnu priya Thammina's website",
     html: `
     <p>Hi,</p>
-    <p>Thank you for registering with us. Please click the link below to verify your account:</p>
+    <p>Thank you for being with us. Please click the link below to verify :</p>
     <p><a href="${URL}">${URL}</a></p>
     <p>Best regards,<br/>Vishnu Priya Thammina</p>
   `
