@@ -13,23 +13,28 @@ const {SendEmail} = require('../middlewares/nodemailer')
 // find one by username and update the token present
 // after generating a fresh token 
 // we send a mail 
-const register = async(req,res)=>{
+const register = async(req,res)=>{ 
     try{
        // create user or get the user that is already present
         const user = await CreateUser(req,res);
         // now generate a new jwt token
-    
+if(user===0){
+    return res.status(400).json({message:'Invalidt'})
+
+}else{
+
         // updated the token
         const user1 = await User.findOneAndUpdate({username:user.username},{token:req.token},{new:true});
         const original_url = 'http://localhost:3000/verification';
         const token = req.token;
         req.URL = `${original_url}/${token}`
-        // const email = await SendEmail(req,res);
+        const email = await SendEmail(req,res);
         return res.status(200).json({message:'email sent'})
+    }
 
 
     }catch(error){
-        res.status(500).json({message:"Internal server error",error:error.message})
+        res.status(500).json({message:"Internal server error"})
     }
 }
 
@@ -46,12 +51,12 @@ const resetMail = async(req,res)=>{
         const original_url = 'http://localhost:3000/reset-password';
         const token = req.token;
         req.URL = `${original_url}/${token}`
-        // const email = await SendEmail(req,res);
+        const email = await SendEmail(req,res);
         return res.status(200).json({message:'email sent'})
 
 
     }catch(error){
-        return res.status(500).json({message:"Internal server error",error:error.message})
+        return res.status(500).json({message:"Internal server error"})
     }
 }
 
@@ -66,16 +71,15 @@ const login = async(req,res)=>{
         }
         if(user.status !== 'verified'){
          return   res.status(400).json({message:"User registration incomplete "})
-
         }
         if(user.password!==password){
           return  res.status(401).json({message:"Unauthorized "})
         }
        const token = await gen(req);
-       res.status(200).json({token:token,message:"login successfull"})
-
+       return res.status(200).json({token:token,message:"login successfull"})
+ 
     }catch(error){
-        return res.status(500).json({message:"Internal server error",error:error.message})
+        return res.status(500).json({message:"Internal server error"})
         
     }
 }

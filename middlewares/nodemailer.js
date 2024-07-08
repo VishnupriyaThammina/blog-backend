@@ -18,7 +18,12 @@ const URL = req.URL;
     from: 'vishhxh@gmail.com',
     to: req.body.email,
     subject: "Account Verification link - to Vishnu priya Thammina's website",
-    text: `Hi, this is your verification link: ${URL}`
+    html: `
+    <p>Hi,</p>
+    <p>Thank you for registering with us. Please click the link below to verify your account:</p>
+    <p><a href="${URL}">${URL}</a></p>
+    <p>Best regards,<br/>Vishnu Priya Thammina</p>
+  `
   };
 
   let info = await transporter.sendMail(mailOptions);

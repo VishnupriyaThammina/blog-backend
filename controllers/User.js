@@ -6,12 +6,12 @@ const { gen } = require("../middlewares/jwt");
 const CreateUser = async(req,res)=>{
     try{
         // Creating the User 
-        const existsUser = await User.findOne({username:req.body.username})
+        const existsUser = await User.findOne({email:req.body.email})
         if(existsUser){
 
         if(existsUser.status=='verified'){
             console.log('User already exists')
-           return res.status(409).json({message:"User already exists"});
+           return 0
             // 409 represents conflict in current request body User id 
         }
         if(existsUser.status=='not-verified'){
@@ -26,7 +26,8 @@ const CreateUser = async(req,res)=>{
       // whose status is not verifed
       // with a new verification token that is not present in the data base 
         }
-    }
+    }else{
+
     const token_v= await gen(req);
     req.token = token_v;
         const newUser = await new User({
@@ -47,11 +48,11 @@ const CreateUser = async(req,res)=>{
         console.log('User added successfully')
         // sending response back and ending execution of the function
        return newUser;
+    }
 
     }catch(error){
-        console.log(error.message)
 
-        return res.status(500).json({message:error.message});
+       return 0
     }
 }
 
@@ -64,6 +65,10 @@ const verifyUser = async(req,res)=>{
         return res.status(400).json({message:"Invalid request"})
         }
         const user = await User.findOneAndUpdate({token:token1},{status:"verified"},{new:true});
+        if(!user){
+        return res.status(400).json({message:"Invalid request"})
+
+        }
         return res.status(200).json({message:"User verified"})
 
     }catch(error){
@@ -83,6 +88,10 @@ if(newPassword !== confirmPassword){
 const pass = confirmPassword
 const token = req.body.token;
 const user = await User.findOneAndUpdate({resetToken:token},{password:pass},{new:true});
+if(!user){
+    return res.status(400).json({message:"Invalid request"})
+
+    }
 return res.status(200).json({message:"Updated user successfully"})
     }catch(error){
 return res.status(500).json({message:"Internal server error"})

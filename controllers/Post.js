@@ -1,7 +1,7 @@
 
 const Post = require('../models/post')
 const User = require('../models/user')
-
+const {uploadToCloudinary,deleteFromCloudinary, removeFromCloudinary} = require('../services/cloudinary')
 const verifyStatus = async(req,res,next)=>{
     try{
         const email = req.email;
@@ -34,13 +34,15 @@ const CreatePost = async(req,res)=>{
         const title = req.body.title;
         const subtitle = req.body.subtitle;
         const content = req.body.content;
-        const thumbnail = req.body.thumbnail;
+        const thumbnail = req.body.thumbnailUrl;
+
         const user = await User.findOne({email:req.email}); 
 
-        const post = new Post({
+
+        const post = new Post({  
             title:title,
             subTitle:subtitle,
-            thumbnail:thumbnail,
+            thumbnail:   thumbnail,
             content:content,
             userid:user.email,
         })

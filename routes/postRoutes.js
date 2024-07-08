@@ -11,7 +11,7 @@ router.post('/create-post',verifyToken,verifyStatus,CreatePost)
 router.post('/edit-post',verifyToken,verifyStatus,EditPost)
 router.post('/delete-post',verifyToken,verifyStatus,DeletePost)
 router.get('/get-all-post',verifyToken,verifyStatus,getAllPosts)
-router.get('/get-full-post',verifyToken,verifyStatus,getFullPost)
+router.post('/get-full-post',verifyToken,verifyStatus,getFullPost)
 router.get('/get-5-post',verifyToken,verifyStatus,get5Posts)
 router.get('/get-user-post',verifyToken,verifyStatus,getUserPosts)
 
