@@ -25,7 +25,7 @@ if(user===0){
 
         // updated the token
         const user1 = await User.findOneAndUpdate({username:user.username},{token:req.token},{new:true});
-        const original_url = 'https://669cfe041a7db4e2529ec78a--luminous-conkies-1af9bb.netlify.app/verification';
+        const original_url = 'https://blog-frontend-kappa-sand.vercel.app/verification';
         const token = req.token;
         req.URL = `${original_url}/${token}`
         const email = await SendEmail(req,res);
@@ -48,7 +48,7 @@ const resetMail = async(req,res)=>{
         // updated the token
         const user1 = await User.findOneAndUpdate({email:req.body.email},{resetToken:req.token},{new:true});
        
-        const original_url = 'https://669cfe041a7db4e2529ec78a--luminous-conkies-1af9bb.netlify.app/reset-password';
+        const original_url = 'https://blog-frontend-kappa-sand.vercel.app/reset-password';
         const token = req.token;
         req.URL = `${original_url}/${token}`
         const email = await SendEmail(req,res);
