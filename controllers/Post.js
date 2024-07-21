@@ -97,7 +97,7 @@ const email = req.email;
 const posts = postss.map(post=>{
     const isOwner = post.userid===email
     return{
-        ...post.toObject(),
+        ...post.toObject(),     
             isOwner
     }
 })
